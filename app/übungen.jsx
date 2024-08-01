@@ -9,7 +9,7 @@ export default () => {
   const [paths, setPaths] = useState([]);
   const [currentPath, setCurrentPath] = useState([]);
   const [isEraser, setIsEraser] = useState(false);
-  const [color, setColor] = useState('red');
+  const [color, setColor] = useState('black');
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const onTouchEnd = () => {
