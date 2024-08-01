@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Background from '../components/background'
+import Background from '../components/Background'
 
 const Profil = () => {
   return (

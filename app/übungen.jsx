@@ -1,13 +1,42 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import Background from '../components/background'
+import React, { useState, useRef } from 'react';
+import { StyleSheet, View, PanResponder } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
 
-const Rangliste = () => {
+const Uebungen = () => {
+  const [path, setPath] = useState('');
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderGrant: (evt, gestureState) => {
+        const { locationX, locationY } = evt.nativeEvent;
+        setPath(`M${locationX},${locationY}`);
+      },
+      onPanResponderMove: (evt, gestureState) => {
+        const { locationX, locationY } = evt.nativeEvent;
+        setPath(prevPath => `${prevPath} L${locationX},${locationY}`);
+      },
+      onPanResponderRelease: () => {
+        // Optionally handle when touch ends
+      },
+    })
+  ).current;
+
   return (
-    <View>
-      <Background color="#359993"/>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={styles.drawingArea} {...panResponder.panHandlers}>
+        <Svg height="100%" width="100%">
+          <Path d={path} fill="none" stroke="black" strokeWidth="5" />
+        </Svg>
+      </View>
     </View>
-  )
-}
+  );
+};
 
-export default Rangliste
+const styles = StyleSheet.create({
+  drawingArea: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+});
+
+export default Uebungen;
